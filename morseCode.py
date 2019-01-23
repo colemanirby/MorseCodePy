@@ -78,7 +78,9 @@ def main():
 
     # ['h', 'e', 'l', 'l', 'o', '_', 'w', 'o', 'r', 'l', 'd']
 
-    userInputArray = userInputToArray("Piano Whitman")
+    userInput = input("Type What you want to translate: ")
+
+    userInputArray = userInputToArray(userInput)
 
     blinkMorseCode(userInputArray)
 
