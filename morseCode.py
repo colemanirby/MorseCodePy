@@ -1,5 +1,7 @@
 import time
 
+from gpiozero import LED
+
 # Morse Alphabet
 
 MorseAlphabet = {
@@ -57,16 +59,17 @@ MorseAlphabet = {
     'Z': ['-', '-', '.', '.']
 
 }
+led = LED(17)
 
-delayBetweenDashesAndDots = 500
+delayBetweenDashesAndDots = 0.25
 
-delayBetweenLetters = 750
+delayBetweenLetters = 0.5
 
-delayBetweenWords = 1000
+delayBetweenWords = 1
 
-delayForDot = 50
+delayForDot = 0.10
 
-delayForDash = 100
+delayForDash = 0.25
 
 
 def main():
@@ -90,44 +93,40 @@ def blinkMorseCode(userInputArray):
 
         if letter is '_':
 
-            # time.sleep(delayBetweenWords)
+            time.sleep(delayBetweenWords)
 
-            print("  ", end="")
+            # print("  ", end="")
 
         else:
 
             blinkMorseCodeForLetter(letter)
 
-            # time.sleep(delayBetweenLetters)
+            time.sleep(delayBetweenLetters)
 
 
 def blinkMorseCodeForLetter(letter):
     letterMorse = getLetterMorse(letter)
 
     for dashOrDot in letterMorse:
-        # if dashOrDot is '.':
+        if dashOrDot is '.':
+            led.on()
 
-        #     setPinHigh()
+            time.sleep(delayForDot)
 
-        #     time.sleep(delayForDot)
+            led.off()
 
-        #     setPinLow()
+        if dashOrDot is '-':
+            led.on()
 
-        # if dashOrDot is '-':
+            time.sleep(delayForDash)
 
-        #     setPinHigh()
+            led.off()
 
-        #     time.sleep(delayForDash)
+        time.sleep(delayBetweenDashesAndDots)
 
-        #     setPinLow()
-
-        #
-
-        # time.sleep(delayBetweenDashesAndDots)
-
-        print(dashOrDot, end="")
-
-    print("", end=" ")
+        # print(dashOrDot, end="")
+        # 
+        # print("", end=" ")
 
 
 def userInputToArray(userInput):
